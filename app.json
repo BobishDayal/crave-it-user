@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "buildNumber": "1.0.0",
       "supportsTablet": true
@@ -27,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.bobish.ubereatsuser"
+      "package": "com.bobishdayal.ubereatsuser"
     },
     "web": {
       "favicon": "./assets/favicon.png"

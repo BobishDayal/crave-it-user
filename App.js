@@ -2,9 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Amplify } from "aws-amplify";
-import config from "./src/aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react-native";
 
+import config from "./src/aws-exports";
 import RootNavigator from "./src/Navigation";
 import AuthContextProvider from "./src/Context/AuthContext";
 import BasketContextProvider from "./src/Context/BasketCotext";
