@@ -1,13 +1,12 @@
+import { useEffect, useState } from "react";
 import { View, Text, FlatList, Image } from "react-native";
 
-import orders from "../../../assets/data/orders.json";
-import restaurants from "../../../assets/data/restaurants.json";
 import BasketDishItem from "../../components/BasketDishItem/Index";
+import { userOrderContext } from "../../Context/OrderContext";
 import styles from "./Styles";
+import { ActivityIndicator } from "react-native-paper";
 
-const order = orders[0];
-
-const OrderDetailsHeader = () => {
+const OrderDetailsHeader = ({ order }) => {
   return (
     <View>
       <View style={styles.screen}>
@@ -24,11 +23,22 @@ const OrderDetailsHeader = () => {
   );
 };
 
-const OrderDetails = () => {
+const OrderDetails = ({ id }) => {
+  const [order, setOrder] = useState();
+  const { getOrder } = userOrderContext();
+
+  useEffect(() => {
+    getOrder(id).then(setOrder);
+  }, []);
+
+  if (!order) {
+    return <ActivityIndicator size={"large"} color="gray" />;
+  }
+
   return (
     <FlatList
-      ListHeaderComponent={OrderDetailsHeader}
-      data={restaurants[0].dishes}
+      ListHeaderComponent={() => <OrderDetailsHeader order={order} />}
+      data={order.dishes}
       renderItems={({ item }) => <BasketDishItem basketDish={item} />}
     />
   );

@@ -1,29 +1,40 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Foundation, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
 import RestaurantDetailScreen from "../screens/RestaurantDetailScreen";
 import DishDetailsScreen from "../screens/DishDetailsScreen";
 import BasketDetailScreen from "../screens/BasketDetailScreen";
-import OrderDetails from "../screens/OrderDetails";
 import OrdersScreen from "../screens/OrdersScreen";
+import Profile from "../screens/ProfileScreen";
+import { useAuthContext } from "../Context/AuthContext";
+import OrderDetailsNavigator from "./OrderDetailsNavigator";
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+  const { dbUser } = useAuthContext();
+
   return (
-    <Stack.Navigator screenOptions={{ headerShown: "white" }}>
-      <Stack.Screen name="HomeTabs" component={HomeTabs} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {dbUser ? (
+        <Stack.Screen name="HomeTabs" component={HomeTabs} />
+      ) : (
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      )}
     </Stack.Navigator>
   );
 };
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
   return (
-    <Tab.Navigator barStyle={{ backgroundColor: "white" }}>
+    <Tab.Navigator
+      screenOptions={{ headerShown: false }}
+      barStyle={{ backgroundColor: "white" }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStackNavigator}
@@ -34,7 +45,7 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Orders"
+        name="OrdersTab"
         component={OrdersStackNavigator}
         options={{
           tabBarIcon: (color) => (
@@ -44,7 +55,7 @@ const HomeTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={OrdersScreen}
+        component={Profile}
         options={{
           tabBarIcon: (color) => (
             <FontAwesome5 name="user-alt" size={24} color={color} />
@@ -61,7 +72,11 @@ const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="Restaurants" component={HomeScreen} />
-      <HomeStack.Screen name="Restaurant" component={RestaurantDetailScreen} />
+      <HomeStack.Screen
+        name="Restaurant"
+        component={RestaurantDetailScreen}
+        options={{ headerShown: false }}
+      />
       <HomeStack.Screen name="Dish" component={DishDetailsScreen} />
       <HomeStack.Screen name="Basket" component={BasketDetailScreen} />
     </HomeStack.Navigator>
@@ -74,7 +89,11 @@ const OrdersStackNavigator = () => {
   return (
     <OrdersStack.Navigator>
       <OrdersStack.Screen name="Orders" component={OrdersScreen} />
-      <OrdersStack.Screen name="Order" component={OrderDetails} />
+      <OrdersStack.Screen
+        name="Order"
+        component={OrderDetailsNavigator}
+        screenOptions={{ headerShown: false }}
+      />
     </OrdersStack.Navigator>
   );
 };

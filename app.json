@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "uberEatsUser",
-    "slug": "uberEatsUser",
+    "name": "Uber Eats",
+    "slug": "ubereatsuser",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,16 +18,25 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.bobish.ubereatsuser"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "61db7e93-41ad-4a61-83fa-a76f43d810b8"
+      }
+    },
+    "owner": "bobish"
   }
 }
